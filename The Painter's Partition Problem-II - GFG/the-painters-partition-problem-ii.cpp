@@ -25,6 +25,7 @@ class Solution
      long long int c_painters=1;
       long long int sum=0;
        for(int i=0;i<n;i++){
+           //Extra addedCode
            if(arr[i]>mid)
            return false;
            sum+=arr[i];
@@ -52,7 +53,7 @@ class Solution
           sum+=arr[i];
       }
       
-     long long int low=1;///??????
+     long long int low=0;///??????
     long long  int high=sum;
     // if(k==n)
     //   {
