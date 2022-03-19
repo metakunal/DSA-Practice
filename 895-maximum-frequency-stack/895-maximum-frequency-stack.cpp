@@ -8,16 +8,25 @@ public:
     }
     
     void push(int val) {
-        maxFreq = max(maxFreq,++freq[val]);
+        freq[val]++;
+        maxFreq = max(maxFreq,freq[val]);
         m[freq[val]].push(val);
     }
     
     int pop() {
-        int x = m[maxFreq].top();
+        //Getting our answer as the element that is at the top of our maximum frequency stack
+        int ans = m[maxFreq].top();
         m[maxFreq].pop();
-        if(!m[freq[x]--].size())
+        
+        //Decreasing the current the current frequency of our answer element 
+        freq[ans]--;
+        
+        //If the stack size corresponding to maximum frequency becomes 0, then we decrease the maximum frequency.
+        if(m[maxFreq].size()==0)
+        {
             maxFreq--;
-        return x;
+        }
+        return ans;
     }
 };
 
