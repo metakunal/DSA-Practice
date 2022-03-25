@@ -1,22 +1,28 @@
 class Solution {
 public:
-    int twoCitySchedCost(vector<vector<int>>& costs) {
-     int n=costs.size();
-        int cost=0;
-        for(int i=0;i<n;i++)
+     int twoCitySchedCost(vector<vector<int>>& costs) {
+        vector<int> diff;
+        int mincost = 0;
+        
+        for(int i = 0; i<costs.size(); ++i)
         {
-            cost+=costs[i][0];
+			// cost to send every person to city A
+            mincost += costs[i][0];
+			// computing difference if person sent to city B
+            diff.push_back(costs[i][1] - costs[i][0]);
         }
-        vector<int> costb;
-         for(int i=0;i<n;i++)
+		
+		// sort the diff vector
+        sort(diff.begin(),diff.end());
+        
+		// picking n persons having least diff
+		// sending them to city B
+        for(int i=0; i<costs.size()/2; ++i)
         {
-            costb.push_back(costs[i][1]-costs[i][0]);
+            mincost += diff[i];
         }
-        sort(costb.begin(),costb.end());
-        for(int i=0;i<n/2;i++)
-        {
-            cost+=costb[i];
-        }
-        return cost;
+        
+        return  mincost;
+        
     }
 };
