@@ -11,33 +11,34 @@
 class Solution {
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-        ListNode *curr = head;
-        int i=0,front,last;
+        ListNode* left=head;
+        ListNode* right=head;
+        ListNode* curr=head;
+        int counter=1;
         while(curr!=NULL)
         {
-            i++;
-            
-            if(i==k)
+            //Left pointer:
+//Iterate through the Linked list, and while the counter is less than k, increment the left pointer.
+//After the counter greater than or equal to k, we do not want to move the left pointer anymore since it is in the desired position.
+            if(counter<k)
             {
-                front = curr->val;
+                left = left->next;
+            }
+            
+            // Right pointer:
+// The right pointer should not start moving until our counter exceeds k, this way the right pointer 'lags' behind the current pointer by k nodes.
+// After counter exceeds k, we increment it each iteration together with the current pointer, keeping the k node lag
+            if(counter>k)
+            {
+                right=right->next;
             }
             curr=curr->next;
+            counter++;
         }
-        curr=head;
-        for(int j=0;j<(i-k);j++)
-        {
-            curr=curr->next;
-        }
-        last=curr->val;
-        curr->val=front;
-        curr=head;
-        k--;
-        while(k--)
-        {
-            curr=curr->next;
-        }
-        curr->val=last;
-        cout<<front<<last;
+        int temp= right->val;
+        right->val=left->val;
+        left->val=temp;
+        
         return head;
     }
 };
