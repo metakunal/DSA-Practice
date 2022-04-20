@@ -9,32 +9,34 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-
 class BSTIterator {
-    stack<TreeNode *> myStack;
+   private: stack<TreeNode *> myStack; 
 public:
-    BSTIterator(TreeNode *root) {
+    BSTIterator(TreeNode* root) {
         pushAll(root);
     }
-
-    /** @return whether we have a next smallest number */
-    bool hasNext() {
-        return !myStack.empty();
-    }
-
-    /** @return the next smallest number */
+    
     int next() {
         TreeNode *tmpNode = myStack.top();
         myStack.pop();
         pushAll(tmpNode->right);
         return tmpNode->val;
     }
-
-private:
-    void pushAll(TreeNode *node) {
-        for (; node != NULL; myStack.push(node), node = node->left);
+    
+    bool hasNext() {
+        return !myStack.empty();
+    }
+    
+    void pushAll(TreeNode *root)
+    {
+        while(root!=NULL)
+        {
+            myStack.push(root);
+            root=root->left;
+        }
     }
 };
+
 /**
  * Your BSTIterator object will be instantiated and called as such:
  * BSTIterator* obj = new BSTIterator(root);
