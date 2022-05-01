@@ -1,41 +1,45 @@
 class Solution {
 public:
     bool backspaceCompare(string s, string t) {
-        stack<int> st1;
-                stack<int> st2;
-        for(char c:s)
+        int k=0,p=0;
+        for(int i=0;i<s.size();i++)
         {
-            if(c=='#')
+            if(s[i]=='#')
             {
-                if(!st1.empty())
-                    st1.pop();
-            }  
-            else
-                st1.push(c);
+                k--;
+                 k=max(0,k);
+            }
+            
+           else
+           {
+               s[k]=s[i];
+               k++;
+           }
         }
-         for(char c:t)
+        for(int i=0;i<t.size();i++)
         {
-            if(c=='#')
+         if(t[i]=='#')
             {
-                if(!st2.empty())
-                    st2.pop();
+                p--;
+                p=max(0,p);
             }
             else
-                st2.push(c);
+            {
+                t[p]=t[i];
+                p++;
+            }   
         }
-        s="";
-        t="";
-        while(!st1.empty())
+        if(k!=p)
+            return false;
+        else
         {
-            s+=st1.top();
-            st1.pop();
-        }
-         while(!st2.empty())
+        for(int i=0;i<k;i++)
         {
-            t+=st2.top();
-            st2.pop();
+            if(s[i]!=t[i])
+                return false;
         }
-        cout<<s<<" "<<t;
-        return (s==t);
+            return true;
+            }
+        
     }
 };
