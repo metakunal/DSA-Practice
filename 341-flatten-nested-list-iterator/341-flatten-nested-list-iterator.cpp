@@ -21,13 +21,13 @@ public:
     vector<int> flattenList;
     int current = 0;
     NestedIterator(vector<NestedInteger> &nestedList) {
-        
+        //Creating a flattened list, by using recursion
         for(auto v:nestedList)
         {
             helper(v);
         }
     }
-    
+    //We are maintaing a current pointer to keep track of curr element
     int next() {
         return flattenList[current++];
     }
@@ -35,6 +35,8 @@ public:
     bool hasNext() {
         return current<flattenList.size();
     }
+    //Helper function to flatten the list
+    //Here we traverse the list and if the element is an integer we push it to our flattened list, but if it is an Nestedlist we again call the helper function recursively.
     void helper(NestedInteger value)
     {
         if(value.isInteger()){
