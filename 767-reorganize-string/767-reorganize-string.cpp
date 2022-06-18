@@ -16,19 +16,10 @@ public:
             }
 
         }
-                    cout<<cmax<<mp[cmax];
+        if (max > (n + 1) / 2) {
+            return ""; 
+        }
 
-        if(n%2==0)
-        {
-            if(mp[cmax]>=(n/2)+1)
-                return "";
-        }
-        else
-        {
-            if(mp[cmax]>(n/2)+1)
-                return "";
-        }
-        
         int i=0;
         while(mp[cmax])
         {
@@ -36,7 +27,6 @@ public:
             mp[cmax]--;
             i=i+2;
         }
-        // cout<<"i"<<i;
          for (auto c: mp) {
             while (c.second > 0) {
                 if (i >= n) i = 1; // First time it reaches L, reset it. Won't be inf loop cause not looping on idx
@@ -44,10 +34,6 @@ public:
                 c.second=c.second-1;
                 i += 2;
             }
-        }
-        for(auto m:mp)
-        {
-            cout<<m.first<<m.second;
         }
         return res;
     }
