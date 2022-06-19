@@ -11,45 +11,19 @@
  */
 class Solution {
 public:
-    vector<int> res;
-    
-    int helper(TreeNode *root)
+    int totalTilt = 0;
+    int valueSum(TreeNode *root)
     {
-        int sum=0;
         if(root==NULL)
             return 0;
-        if(root->left==NULL&&root->right==NULL)
-            return root->val;
-//         sum+=helper(root->left);
-//         sum+=helper(root->right);
-        sum+=((root->val)+helper(root->left)+helper(root->right));   
-        return sum;
-    }
-    void inorder(TreeNode* root)
-    {
-        if(root==NULL)
-            return;
-        inorder(root->left);
-        int sum1,sum2;
-        sum1=helper(root->left);
-        sum2=helper(root->right);
-        res.push_back(abs(sum1-sum2));
-        inorder(root->right);
+        int leftSum=valueSum(root->left);
+        int rightSum=valueSum(root->right);
+        int tilt = abs(leftSum-rightSum);
+        totalTilt+=tilt;
+        return root->val+leftSum+rightSum;
     }
     int findTilt(TreeNode* root) {
-        if(root==NULL)
-            return 0;
-        if(root->left==NULL && root->right==NULL)
-            return 0;
-        inorder(root);
-        int ans=0;
-        for(auto r:res)
-        {
-            cout<<r<<" ";
-            ans+=r;
-        }
-        return ans;
-        
-        
+        int ans=valueSum(root);
+        return totalTilt;
     }
 };
