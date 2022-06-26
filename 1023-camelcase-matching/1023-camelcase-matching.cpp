@@ -7,7 +7,7 @@ public:
         {
             if(i<pattern.length() && pattern[i]==c)
                 i++;
-            else if(isupper(c)&&c!=pattern[i])
+            else if(isupper(c)) //return false if we find a uppercase character that does not matches with then false
                 return false;
         }
         return i==pattern.length();
