@@ -7,7 +7,7 @@ public:
         {
             if(i<pattern.length() && pattern[i]==c)
                 i++;
-            else if(c<'a')
+            else if(isupper(c)&&c!=pattern[i])
                 return false;
         }
         return i==pattern.length();
