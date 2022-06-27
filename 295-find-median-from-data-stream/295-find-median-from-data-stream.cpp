@@ -22,8 +22,7 @@ public:
             return minheap.top();
         else
         {
-            double sum=minheap.top()+maxheap.top();
-            return sum/2;
+            return (minheap.top()+maxheap.top())/2.0;
         }
     }
 };
