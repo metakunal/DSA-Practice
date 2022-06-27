@@ -1,55 +1,88 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        int i=0,j=0,MinL=INT_MAX,start=0;
-        unordered_map<char,int> mp;
-        for(auto it:t)
-            mp[it]++;
+        map<char,int> mp;
+        for(auto c:t)
+        {
+            mp[c]++;
+        }
         int count=mp.size();
-        
-        if(mp.find(s[j])!=mp.end()){
-            mp[s[j]]--;
-            if(mp[s[j]]==0)
-                count--;
+        int ans=INT_MAX;
+        string res="";
+        int i=0,j=0;
+        int start=0,end=0;
+        while(j<s.length())
+    {
+      // CALCULATION STEP ( As Aditya's general format)
+
+       if(mp.find(s[j])!=mp.end())
+       {
+           mp[s[j]]--;
+           if(mp[s[j]]==0)
+           count--;
+       }
+
+// step to slide " j "
+
+       if(count>0)
+       j++;
+
+// step where we will find a candidate for answer
+
+       else if(count==0)
+       {
+           if(ans>j-i+1)
+           {
+               ans=j-i+1;
+               end=j;
+               start=i;
+           }
+            // A candidate for our Answer
+
+// trying to minimize the window size after getting a candidate for answer
+
+           while(count==0)
+           {
+               if(mp.find(s[i])==mp.end())
+               {
+                   i++;
+                   if(ans>j-i+1)
+           {
+               ans=j-i+1;
+               end=j;
+               start=i;
+           }
+               }
+               else
+               {
+                   mp[s[i]]++;
+                   if(mp[s[i]]>0)
+                   {
+                       i++;
+                       count++;
+                   }
+                   else
+                   {
+                       i++;
+                        if(ans>j-i+1)
+           {
+               ans=j-i+1;
+               end=j;
+               start=i;
+           }   // updating the answer
+                   }
+               }
+           }
+           j++;
+       }
+    }
+    // cout<<ans<<endl;
+        if(ans!=INT_MAX)
+        {
+           for(int i=start;i<=end;i++)
+            res+=s[i]; 
         }
         
-        while(j<s.length()){
-            if(count>0){
-                j++;
-                if(mp.find(s[j])!=mp.end()){
-                    mp[s[j]]--;
-                    if(mp[s[j]]==0)
-                    count--;
-                }
-            }
-            else if(count==0){
-                // MinL=min(MinL,j-i+1);
-                if(MinL>j-i+1){
-                    MinL=j-i+1;
-                    start=i;
-                }
-                while(count==0){
-                    if(mp.find(s[i])!=mp.end()){
-                        mp[s[i]]++;
-                        if(mp[s[i]]==1){
-                            count++;
-                            // MinL=min(MinL,j-i+1);
-                             if(MinL>j-i+1){
-                                MinL=j-i+1;
-                                start=i;
-                            } 
-                        }
-                        i++;
-                    }
-                    else
-                        i++;
-                }
-            }
-        }
-        string str="";
-        if(MinL!=INT_MAX)
-            return str.append(s.substr(start,MinL));
-        else
-            return str;
+        return res;
     }
 };
