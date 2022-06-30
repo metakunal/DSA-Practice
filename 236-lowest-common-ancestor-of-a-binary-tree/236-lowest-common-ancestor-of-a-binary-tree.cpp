@@ -9,19 +9,28 @@
  */
 class Solution {
 public:
+    bool findpath(TreeNode* root,vector<TreeNode*> &path,TreeNode* n)
+    {
+        if(root==NULL)
+            return false;
+        path.push_back(root);
+        if(root->val==n->val)
+            return true;
+        if(findpath(root->left,path,n)||findpath(root->right,path,n))
+            return true;
+        
+        path.pop_back();
+        return false;
+    }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-     if(root==NULL)
-         return NULL;
-        if(root->val==p->val || root->val==q->val)
-            return root;
-        TreeNode* lca1=lowestCommonAncestor(root->left,p,q);
-        TreeNode* lca2=lowestCommonAncestor(root->right,p,q);
-        if(lca1!=NULL && lca2!=NULL)
-            return root;
-        if(lca1!=NULL)
-            return lca1;
-        else
-            return lca2;
-
+        vector<TreeNode*> path1,path2;
+        findpath(root,path1,p);
+        findpath(root,path2,q);
+        int n=min(path1.size(),path2.size());
+        // cout<<path1.size();
+       for (int i=1; i<n; i++) {
+            if (path1[i]!=path2[i]) return path1[i-1];
+        }
+        return path1[n-1];
     }
 };
