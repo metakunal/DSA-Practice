@@ -12,12 +12,13 @@ class Solution
     // vector<int> dp;
     long long helper(int n,vector<long long> &dp)
     {
+         if(dp[n]!=-1)
+        return dp[n]%MOD;
         if(n==0 ||n==1)
         return 1;
         if(n==2)
         return n;
-        if(dp[n]!=-1)
-        return dp[n]%MOD;
+       
         return dp[n]=(helper(n-1,dp)%MOD+helper(n-2,dp)%MOD+helper(n-3,dp)%MOD)%MOD;
         
     }
