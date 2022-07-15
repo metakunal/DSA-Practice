@@ -84,34 +84,33 @@ Node *buildTree(string str) {
 
 class Solution {
   public:
-    Node* createMapping(Node* root,int target,map<Node*,Node*>& m)
- {
-     Node* res=NULL;
-     queue<Node*> q;
-     q.push(root);
-     m[root]=NULL;
-     while(!q.empty())
-     {
-         Node* front=q.front();
-         q.pop();
-         if(front->data==target)
-         {
-             res=front;
-         }
-         if(front->left)
-         {
-             m[front->left]=front;
-             q.push(front->left);
-         }
-         if(front->right)
-         {
-             m[front->right]=front;
-             q.push(front->right);
-         }
-     }
-     return res;
-     
- }
+  Node* createMapping(Node* root,int target,map<Node*,Node*> &mp)
+  {
+      queue<Node*> q;
+      q.push(root);
+      mp[root]=NULL;
+      Node* res=NULL;
+      while(q.empty()==false)
+      {
+          Node* top=q.front();
+          q.pop();
+          if(top->data==target)
+            res=top;
+          if(top->left!=NULL)
+          {
+                          mp[top->left]=top;
+                          q.push(top->left);
+          }
+
+            
+        if(top->right!=NULL)
+        {
+            mp[top->right]=top;
+            q.push(top->right);
+        }
+      }
+      return res;
+  }
   int burnTree(Node* root,map<Node*,Node*> &childToParent)
   {
       map<Node*,bool> visited;
